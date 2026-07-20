@@ -1,7 +1,7 @@
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
-import { Application, ApplicationStatus, CreateApplicationDto, UpdateApplicationDto } from "../services/applications.js";
+import type { Application, CreateApplicationDto, UpdateApplicationDto } from "../services/applications.js";
 import { X, Trash2 } from "lucide-react";
 import { useEffect } from "react";
 

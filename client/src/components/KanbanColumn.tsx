@@ -1,6 +1,6 @@
 import { useDroppable } from "@dnd-kit/core";
 import { SortableContext, verticalListSortingStrategy } from "@dnd-kit/sortable";
-import { Application, ApplicationStatus } from "../services/applications.js";
+import type { Application, ApplicationStatus } from "../services/applications.js";
 import { KanbanCard } from "./KanbanCard.js";
 
 interface Props {

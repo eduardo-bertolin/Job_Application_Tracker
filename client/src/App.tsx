@@ -2,6 +2,7 @@ import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import { LoginPage } from "./pages/LoginPage.js";
 import { RegisterPage } from "./pages/RegisterPage.js";
 import { KanbanPage } from "./pages/KanbanPage.js";
+import { MetricsPage } from "./pages/MetricsPage.js";
 import { ProtectedRoute } from "./components/ProtectedRoute.js";
 
 function App() {
@@ -13,6 +14,7 @@ function App() {
         
         <Route element={<ProtectedRoute />}>
           <Route path="/kanban" element={<KanbanPage />} />
+          <Route path="/metrics" element={<MetricsPage />} />
         </Route>
 
         {/* Redirect root and legacy dashboard to kanban */}

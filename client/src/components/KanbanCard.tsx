@@ -1,6 +1,6 @@
 import { useSortable } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
-import { Application } from "../services/applications.js";
+import type { Application } from "../services/applications.js";
 import { format } from "date-fns";
 import { Building2, ExternalLink } from "lucide-react";
 

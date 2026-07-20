@@ -2,10 +2,11 @@ import { useNavigate } from "react-router-dom";
 import { useAuthStore } from "../stores/authStore.js";
 import { authService } from "../services/auth.js";
 import { useEffect, useState } from "react";
-import { Application, applicationService, ApplicationStatus, CreateApplicationDto, UpdateApplicationDto } from "../services/applications.js";
+import { applicationService } from "../services/applications.js";
+import type { Application, ApplicationStatus, CreateApplicationDto, UpdateApplicationDto } from "../services/applications.js";
 import { KanbanColumn } from "../components/KanbanColumn.js";
 import { ApplicationModal } from "../components/ApplicationModal.js";
-import { Plus, LayoutDashboard } from "lucide-react";
+import { Plus, LayoutDashboard, BarChart3, Kanban } from "lucide-react";
 import {
   DndContext,
   DragOverlay,
@@ -14,9 +15,8 @@ import {
   PointerSensor,
   useSensor,
   useSensors,
-  DragStartEvent,
-  DragEndEvent,
 } from "@dnd-kit/core";
+import type { DragStartEvent, DragEndEvent } from "@dnd-kit/core";
 import { sortableKeyboardCoordinates } from "@dnd-kit/sortable";
 import { KanbanCard } from "../components/KanbanCard.js";
 
@@ -169,6 +169,20 @@ export function KanbanPage() {
           </div>
           <h1 className="text-xl font-bold text-gray-900">JobTracker</h1>
         </div>
+
+        <nav className="flex items-center gap-1">
+          <button
+            className="flex items-center gap-1 px-3 py-2 text-sm font-medium text-blue-600 bg-blue-50 rounded-md"
+          >
+            <Kanban size={16} /> Kanban
+          </button>
+          <button
+            onClick={() => navigate("/metrics")}
+            className="flex items-center gap-1 px-3 py-2 text-sm font-medium text-gray-600 hover:text-blue-600 hover:bg-blue-50 rounded-md transition"
+          >
+            <BarChart3 size={16} /> Metrics
+          </button>
+        </nav>
         
         <div className="flex items-center gap-4">
           <span className="text-gray-600 text-sm">Welcome, <strong>{user?.name || user?.email}</strong></span>
