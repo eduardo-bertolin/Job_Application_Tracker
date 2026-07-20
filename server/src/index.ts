@@ -12,7 +12,14 @@ const PORT = process.env.PORT || 3001;
 // CORS configuration for cookies
 app.use(
   cors({
-    origin: process.env.CLIENT_URL || "http://localhost:5173",
+    origin: (origin, callback) => {
+      // Allow any localhost/127.0.0.1 origin in dev
+      if (!origin || /^http:\/\/(localhost|127\.0\.0\.1):\d+$/.test(origin)) {
+        callback(null, true);
+      } else {
+        callback(new Error("Not allowed by CORS"));
+      }
+    },
     credentials: true, // required to send/receive cookies
   })
 );
@@ -25,7 +32,7 @@ app.get("/health", (_req, res) => {
 
 app.use("/auth", authRoutes);
 
-app.listen(PORT, () => {
+app.listen(PORT, "0.0.0.0", () => {
   console.log(`Server running on http://localhost:${PORT}`);
 });
 
