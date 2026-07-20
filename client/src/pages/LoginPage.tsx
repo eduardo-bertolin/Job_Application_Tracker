@@ -16,7 +16,16 @@ export function LoginPage() {
       await authService.login({ email, password });
       navigate("/dashboard");
     } catch (err: any) {
-      setError(err.response?.data?.error || "Login failed");
+      console.error("Full error object:", err);
+      const serverError = err.response?.data;
+      
+      if (serverError?.error) {
+        setError(serverError.error);
+      } else if (err.message) {
+        setError(`Network or unknown error: ${err.message}`);
+      } else {
+        setError("Login failed (unknown cause)");
+      }
     }
   };
 

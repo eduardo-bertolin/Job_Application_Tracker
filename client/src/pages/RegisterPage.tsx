@@ -17,11 +17,19 @@ export function RegisterPage() {
       await authService.register({ email, password, name });
       navigate("/dashboard");
     } catch (err: any) {
+      console.error("Full error object:", err);
       const serverError = err.response?.data;
+      
       if (serverError?.details) {
-        setError(serverError.details[0].message); // Show first Zod error
+        // Show all validation errors separated by newline
+        const msgs = serverError.details.map((d: any) => `${d.field}: ${d.message}`).join(" | ");
+        setError(`Validation error: ${msgs}`);
+      } else if (serverError?.error) {
+        setError(serverError.error);
+      } else if (err.message) {
+        setError(`Network or unknown error: ${err.message}`);
       } else {
-        setError(serverError?.error || "Registration failed");
+        setError("Registration failed (unknown cause)");
       }
     }
   };
