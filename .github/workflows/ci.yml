@@ -1,0 +1,33 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  lint-and-test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - run: npm ci
+
+      - name: Lint client
+        run: npm run lint -w client
+
+      - name: Lint server
+        run: npm run lint -w server
+
+      - name: Test client
+        run: npm run test -w client
+
+      - name: Test server
+        run: npm run test -w server
