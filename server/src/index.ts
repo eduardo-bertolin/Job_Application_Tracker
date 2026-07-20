@@ -30,7 +30,10 @@ app.get("/health", (_req, res) => {
   res.json({ status: "ok" });
 });
 
+import applicationRoutes from "./routes/application.routes.js";
+
 app.use("/auth", authRoutes);
+app.use("/applications", applicationRoutes);
 
 app.listen(PORT, "0.0.0.0", () => {
   console.log(`Server running on http://localhost:${PORT}`);

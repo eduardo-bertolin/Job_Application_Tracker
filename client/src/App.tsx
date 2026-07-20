@@ -1,7 +1,7 @@
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import { LoginPage } from "./pages/LoginPage.js";
 import { RegisterPage } from "./pages/RegisterPage.js";
-import { DashboardPage } from "./pages/DashboardPage.js";
+import { KanbanPage } from "./pages/KanbanPage.js";
 import { ProtectedRoute } from "./components/ProtectedRoute.js";
 
 function App() {
@@ -12,11 +12,12 @@ function App() {
         <Route path="/register" element={<RegisterPage />} />
         
         <Route element={<ProtectedRoute />}>
-          <Route path="/dashboard" element={<DashboardPage />} />
+          <Route path="/kanban" element={<KanbanPage />} />
         </Route>
 
-        {/* Redirect root to dashboard (which redirects to login if unauth) */}
-        <Route path="/" element={<Navigate to="/dashboard" replace />} />
+        {/* Redirect root and legacy dashboard to kanban */}
+        <Route path="/" element={<Navigate to="/kanban" replace />} />
+        <Route path="/dashboard" element={<Navigate to="/kanban" replace />} />
       </Routes>
     </BrowserRouter>
   );
