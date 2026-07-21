@@ -72,7 +72,7 @@ export const gmailController = {
   async applySuggestion(req: Request, res: Response, next: NextFunction) {
     try {
       const userId = req.user!.userId;
-      const { id } = req.params;
+      const id = req.params.id as string;
 
       const suggestion = await prisma.emailSuggestion.findFirst({
         where: { id, userId, status: "PENDING" },
@@ -110,7 +110,7 @@ export const gmailController = {
   async dismissSuggestion(req: Request, res: Response, next: NextFunction) {
     try {
       const userId = req.user!.userId;
-      const { id } = req.params;
+      const id = req.params.id as string;
 
       const suggestion = await prisma.emailSuggestion.findFirst({
         where: { id, userId, status: "PENDING" },

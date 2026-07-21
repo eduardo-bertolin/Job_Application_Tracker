@@ -7,7 +7,7 @@ import authRoutes from "./routes/auth.routes.js";
 dotenv.config();
 
 const app = express();
-const PORT = process.env.PORT || 3001;
+const PORT = process.env.PORT ? parseInt(process.env.PORT, 10) : 3001;
 
 // CORS configuration for cookies
 app.use(

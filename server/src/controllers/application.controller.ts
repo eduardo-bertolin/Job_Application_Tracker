@@ -40,7 +40,7 @@ export const applicationController = {
   async getApplicationById(req: Request, res: Response, next: NextFunction) {
     try {
       const userId = req.user!.userId;
-      const { id } = req.params;
+      const id = req.params.id as string;
 
       const application = await prisma.application.findFirst({
         where: { id, userId },
@@ -73,7 +73,7 @@ export const applicationController = {
       res.status(201).json({ application });
     } catch (error) {
       if (error instanceof z.ZodError) {
-        res.status(400).json({ error: "Validation error", details: error.errors });
+        res.status(400).json({ error: "Validation error", details: (error as any).errors });
         return;
       }
       next(error);
@@ -84,7 +84,7 @@ export const applicationController = {
   async updateApplication(req: Request, res: Response, next: NextFunction) {
     try {
       const userId = req.user!.userId;
-      const { id } = req.params;
+      const id = req.params.id as string;
       const validatedData = updateApplicationSchema.parse(req.body);
 
       // Verify ownership
@@ -105,7 +105,7 @@ export const applicationController = {
       res.status(200).json({ application });
     } catch (error) {
       if (error instanceof z.ZodError) {
-        res.status(400).json({ error: "Validation error", details: error.errors });
+        res.status(400).json({ error: "Validation error", details: (error as any).errors });
         return;
       }
       next(error);
@@ -116,7 +116,7 @@ export const applicationController = {
   async deleteApplication(req: Request, res: Response, next: NextFunction) {
     try {
       const userId = req.user!.userId;
-      const { id } = req.params;
+      const id = req.params.id as string;
 
       // Verify ownership
       const existing = await prisma.application.findFirst({
