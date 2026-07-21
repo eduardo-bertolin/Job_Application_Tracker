@@ -3,6 +3,7 @@ import { LoginPage } from "./pages/LoginPage.js";
 import { RegisterPage } from "./pages/RegisterPage.js";
 import { KanbanPage } from "./pages/KanbanPage.js";
 import { MetricsPage } from "./pages/MetricsPage.js";
+import { GmailPage } from "./pages/GmailPage.js";
 import { ProtectedRoute } from "./components/ProtectedRoute.js";
 
 function App() {
@@ -15,6 +16,7 @@ function App() {
         <Route element={<ProtectedRoute />}>
           <Route path="/kanban" element={<KanbanPage />} />
           <Route path="/metrics" element={<MetricsPage />} />
+          <Route path="/gmail" element={<GmailPage />} />
         </Route>
 
         {/* Redirect root and legacy dashboard to kanban */}

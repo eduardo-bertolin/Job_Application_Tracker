@@ -32,10 +32,12 @@ app.get("/health", (_req, res) => {
 
 import applicationRoutes from "./routes/application.routes.js";
 import dashboardRoutes from "./routes/dashboard.routes.js";
+import gmailRoutes from "./routes/gmail.routes.js";
 
 app.use("/auth", authRoutes);
 app.use("/applications", applicationRoutes);
 app.use("/dashboard", dashboardRoutes);
+app.use("/gmail", gmailRoutes);
 
 app.listen(PORT, "0.0.0.0", () => {
   console.log(`Server running on http://localhost:${PORT}`);

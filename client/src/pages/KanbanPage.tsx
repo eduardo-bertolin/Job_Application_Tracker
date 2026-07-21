@@ -6,7 +6,7 @@ import { applicationService } from "../services/applications.js";
 import type { Application, ApplicationStatus, CreateApplicationDto, UpdateApplicationDto } from "../services/applications.js";
 import { KanbanColumn } from "../components/KanbanColumn.js";
 import { ApplicationModal } from "../components/ApplicationModal.js";
-import { Plus, LayoutDashboard, BarChart3, Kanban } from "lucide-react";
+import { Plus, LayoutDashboard, BarChart3, Kanban, Mail } from "lucide-react";
 import {
   DndContext,
   DragOverlay,
@@ -41,21 +41,23 @@ export function KanbanPage() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [editingApplication, setEditingApplication] = useState<Application | null>(null);
 
-  useEffect(() => {
-    fetchApplications();
-  }, []);
-
   const fetchApplications = async () => {
     try {
       setIsLoading(true);
       const data = await applicationService.getAll();
       setApplications(data);
-    } catch (err) {
+    } catch {
       setError("Failed to load applications");
     } finally {
       setIsLoading(false);
     }
   };
+
+  useEffect(() => {
+    fetchApplications();
+  }, []);
+
+
 
   const handleLogout = async () => {
     await authService.logout();
@@ -114,7 +116,7 @@ export function KanbanPage() {
 
     try {
       await applicationService.update(activeId as string, { status: newStatus });
-    } catch (err) {
+    } catch {
       // Revert on error
       setApplications(prev => prev.map(app => 
         app.id === activeId ? { ...app, status: previousStatus } : app
@@ -181,6 +183,12 @@ export function KanbanPage() {
             className="flex items-center gap-1 px-3 py-2 text-sm font-medium text-gray-600 hover:text-blue-600 hover:bg-blue-50 rounded-md transition"
           >
             <BarChart3 size={16} /> Metrics
+          </button>
+          <button
+            onClick={() => navigate("/gmail")}
+            className="flex items-center gap-1 px-3 py-2 text-sm font-medium text-gray-600 hover:text-blue-600 hover:bg-blue-50 rounded-md transition"
+          >
+            <Mail size={16} /> Gmail
           </button>
         </nav>
         

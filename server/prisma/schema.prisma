@@ -10,14 +10,16 @@ datasource db {
 }
 
 model User {
-  id           String        @id @default(uuid())
-  email        String        @unique
-  name         String?
-  passwordHash String        @map("password_hash")
-  createdAt    DateTime      @default(now()) @map("created_at")
-  updatedAt    DateTime      @updatedAt @map("updated_at")
-  applications Application[]
-  refreshTokens RefreshToken[]
+  id               String            @id @default(uuid())
+  email            String            @unique
+  name             String?
+  passwordHash     String            @map("password_hash")
+  createdAt        DateTime          @default(now()) @map("created_at")
+  updatedAt        DateTime          @updatedAt @map("updated_at")
+  applications     Application[]
+  refreshTokens    RefreshToken[]
+  gmailConnection  GmailConnection?
+  emailSuggestions EmailSuggestion[]
 
   @@map("users")
 }
@@ -34,20 +36,54 @@ model RefreshToken {
 }
 
 model Application {
-  id          String   @id @default(uuid())
-  companyName String   @map("company_name")
-  jobTitle    String   @map("job_title")
-  jobUrl      String?  @map("job_url")
-  status      String   @default("APPLIED") // APPLIED, SCREENING, INTERVIEW, OFFER, REJECTED
-  appliedAt   DateTime @default(now()) @map("applied_at")
-  notes       String?  @db.Text
-  createdAt   DateTime @default(now()) @map("created_at")
-  updatedAt   DateTime @updatedAt @map("updated_at")
+  id               String            @id @default(uuid())
+  companyName      String            @map("company_name")
+  jobTitle         String            @map("job_title")
+  jobUrl           String?           @map("job_url")
+  status           String            @default("APPLIED")
+  appliedAt        DateTime          @default(now()) @map("applied_at")
+  notes            String?           @db.Text
+  createdAt        DateTime          @default(now()) @map("created_at")
+  updatedAt        DateTime          @updatedAt @map("updated_at")
 
-  userId      String   @map("user_id")
-  user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId           String            @map("user_id")
+  user             User              @relation(fields: [userId], references: [id], onDelete: Cascade)
+  emailSuggestions EmailSuggestion[]
 
   @@index([userId, status])
   @@index([userId, appliedAt])
   @@map("applications")
+}
+
+model GmailConnection {
+  id                    String    @id @default(uuid())
+  userId                String    @unique @map("user_id")
+  user                  User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  encryptedAccessToken  String    @map("encrypted_access_token") @db.Text
+  encryptedRefreshToken String    @map("encrypted_refresh_token") @db.Text
+  tokenExpiresAt        DateTime  @map("token_expires_at")
+  connectedAt           DateTime  @default(now()) @map("connected_at")
+  lastSyncAt            DateTime? @map("last_sync_at")
+
+  @@map("gmail_connections")
+}
+
+model EmailSuggestion {
+  id              String       @id @default(uuid())
+  userId          String       @map("user_id")
+  user            User         @relation(fields: [userId], references: [id], onDelete: Cascade)
+  applicationId   String?      @map("application_id")
+  application     Application? @relation(fields: [applicationId], references: [id], onDelete: SetNull)
+  emailSubject    String       @map("email_subject")
+  emailFrom       String       @map("email_from")
+  emailDate       DateTime     @map("email_date")
+  suggestedStatus String       @map("suggested_status")
+  confidence      String       @default("LOW") // LOW, MEDIUM, HIGH
+  snippet         String?      @db.Text
+  status          String       @default("PENDING") // PENDING, ACCEPTED, DISMISSED
+  gmailMessageId  String?      @unique @map("gmail_message_id")
+  createdAt       DateTime     @default(now()) @map("created_at")
+
+  @@index([userId, status])
+  @@map("email_suggestions")
 }
