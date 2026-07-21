@@ -18,7 +18,7 @@ test.describe('Kanban Flow', () => {
 
   test('create, move, edit, and delete an application', async ({ page }) => {
     // 1. Create Application
-    await page.click('text=New Application');
+    await page.click('button:has-text("New")');
     await expect(page.locator('h2:has-text("New Application")')).toBeVisible();
 
     await page.fill('input[name="companyName"]', companyName);

@@ -22,7 +22,7 @@ test.describe('Metrics Flow', () => {
     await page.click('text=Go to Kanban');
     await expect(page).toHaveURL(/.*\/kanban/);
 
-    await page.click('text=New Application');
+    await page.click('button:has-text("New")');
     await page.fill('input[name="companyName"]', 'Company A');
     await page.fill('input[name="jobTitle"]', 'Role A');
     await page.click('button[type="submit"]');
@@ -30,7 +30,7 @@ test.describe('Metrics Flow', () => {
     // Wait for modal to close and card to appear
     await expect(page.locator('text=Role A')).toBeVisible();
 
-    await page.click('text=New Application');
+    await page.click('button:has-text("New")');
     await page.fill('input[name="companyName"]', 'Company B');
     await page.fill('input[name="jobTitle"]', 'Role B');
     await page.selectOption('select[name="status"]', 'INTERVIEW');

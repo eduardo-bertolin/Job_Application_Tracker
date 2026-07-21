@@ -37,7 +37,7 @@ test.describe('Matching Flow', () => {
     await page.click('text=Kanban');
     await expect(page).toHaveURL(/.*\/kanban/);
 
-    await page.click('text=New Application');
+    await page.click('button:has-text("New")');
     await page.fill('input[name="companyName"]', 'Tech Corp');
     await page.fill('input[name="jobTitle"]', 'Senior Software Engineer');
     await page.fill('textarea[name="jobDescription"]', jobDescription);
