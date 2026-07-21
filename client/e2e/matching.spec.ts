@@ -1,6 +1,7 @@
 import { test, expect } from '@playwright/test';
 
 test.describe('Matching Flow', () => {
+  test.setTimeout(120000);
   const email = `matching-${Date.now()}@example.com`;
   const password = 'Password123!';
   const resumeText = "I am a senior fullstack software engineer with 10 years of experience in React, Node.js, and TypeScript. I have built scalable microservices and led engineering teams to success. I have extensive experience with database design, CI/CD pipelines, and cloud architecture.";

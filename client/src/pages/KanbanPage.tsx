@@ -163,54 +163,57 @@ export function KanbanPage() {
   const activeApplication = activeId ? applications.find(app => app.id === activeId) : null;
 
   return (
-    <div className="min-h-screen bg-gray-100 flex flex-col">
-      <header className="bg-white border-b border-gray-200 px-8 py-4 flex justify-between items-center shrink-0">
-        <div className="flex items-center gap-2">
-          <div className="bg-blue-600 p-2 rounded-lg">
+    <div className="min-h-screen bg-slate-50 flex flex-col font-sans">
+      <header className="sticky top-0 z-50 glass px-6 py-4 flex flex-col sm:flex-row justify-between items-center shrink-0 border-b border-slate-200/50">
+        <div className="flex items-center gap-3 mb-4 sm:mb-0">
+          <div className="bg-gradient-to-br from-primary-500 to-primary-700 p-2.5 rounded-xl shadow-md shadow-primary-500/20">
             <LayoutDashboard size={20} className="text-white" />
           </div>
-          <h1 className="text-xl font-bold text-gray-900">JobTracker</h1>
+          <h1 className="text-2xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-slate-900 to-slate-700 tracking-tight">JobTracker</h1>
         </div>
 
-        <nav className="flex items-center gap-1">
+        <nav className="flex items-center gap-1 bg-slate-100/50 p-1 rounded-xl border border-slate-200/50 shadow-sm">
           <button
-            className="flex items-center gap-1 px-3 py-2 text-sm font-medium text-blue-600 bg-blue-50 rounded-md"
+            className="flex items-center gap-2 px-4 py-2 text-sm font-semibold text-primary-700 bg-white rounded-lg shadow-sm ring-1 ring-slate-200/50 transition-all"
           >
-            <Kanban size={16} /> Kanban
+            <Kanban size={16} className="text-primary-600" /> Kanban
           </button>
           <button
             onClick={() => navigate("/metrics")}
-            className="flex items-center gap-1 px-3 py-2 text-sm font-medium text-gray-600 hover:text-blue-600 hover:bg-blue-50 rounded-md transition"
+            className="flex items-center gap-2 px-4 py-2 text-sm font-medium text-slate-600 hover:text-primary-600 hover:bg-white/60 rounded-lg transition-all"
           >
             <BarChart3 size={16} /> Metrics
           </button>
           <button
             onClick={() => navigate("/gmail")}
-            className="flex items-center gap-1 px-3 py-2 text-sm font-medium text-gray-600 hover:text-blue-600 hover:bg-blue-50 rounded-md transition"
+            className="flex items-center gap-2 px-4 py-2 text-sm font-medium text-slate-600 hover:text-primary-600 hover:bg-white/60 rounded-lg transition-all"
           >
             <Mail size={16} /> Gmail
           </button>
           <button
             onClick={() => navigate("/resume")}
-            className="flex items-center gap-1 px-3 py-2 text-sm font-medium text-gray-600 hover:text-blue-600 hover:bg-blue-50 rounded-md transition"
+            className="flex items-center gap-2 px-4 py-2 text-sm font-medium text-slate-600 hover:text-primary-600 hover:bg-white/60 rounded-lg transition-all"
           >
             <FileText size={16} /> Resume
           </button>
         </nav>
         
-        <div className="flex items-center gap-4">
-          <span className="text-gray-600 text-sm">Welcome, <strong>{user?.name || user?.email}</strong></span>
+        <div className="flex items-center gap-5 mt-4 sm:mt-0">
+          <div className="hidden md:flex flex-col items-end">
+            <span className="text-xs text-slate-500 font-medium uppercase tracking-wider">Welcome</span>
+            <span className="text-sm font-bold text-slate-800">{user?.name || user?.email}</span>
+          </div>
           <button 
             onClick={handleAddApplication}
-            className="flex items-center gap-1 bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-md transition shadow-sm text-sm font-medium"
+            className="group relative flex items-center gap-2 bg-primary-600 hover:bg-primary-700 text-white px-5 py-2.5 rounded-xl transition-all shadow-md hover:shadow-lg hover:-translate-y-0.5 text-sm font-semibold overflow-hidden"
           >
-            <Plus size={16} />
-            New Application
+            <span className="relative z-10 flex items-center gap-2"><Plus size={18} /> New</span>
+            <div className="absolute inset-0 -translate-x-full group-hover:animate-[shimmer_1.5s_infinite] bg-gradient-to-r from-transparent via-white/20 to-transparent" />
           </button>
-          <div className="h-6 w-px bg-gray-300"></div>
+          <div className="h-8 w-px bg-slate-200 hidden sm:block"></div>
           <button 
             onClick={handleLogout}
-            className="text-sm font-medium text-gray-600 hover:text-red-600 transition"
+            className="text-sm font-medium text-slate-500 hover:text-red-600 transition-colors px-2"
           >
             Logout
           </button>

@@ -78,55 +78,56 @@ export function ApplicationModal({ application, isOpen, onClose, onSubmit, onDel
   };
 
   return (
-    <div className="fixed inset-0 bg-black/50 flex items-center justify-center p-4 z-50">
-      <div className="bg-white rounded-xl shadow-xl w-full max-w-md overflow-hidden flex flex-col max-h-[90vh]">
-        <div className="px-6 py-4 border-b border-gray-100 flex justify-between items-center bg-gray-50/50">
-          <h2 className="text-xl font-semibold text-gray-800">
+    <div className="fixed inset-0 bg-slate-900/40 backdrop-blur-sm flex items-center justify-center p-4 z-50 animate-in fade-in duration-200">
+      <div className="bg-white rounded-2xl shadow-2xl w-full max-w-md overflow-hidden flex flex-col max-h-[90vh] border border-slate-200/60 transform transition-all">
+        <div className="px-6 py-5 border-b border-slate-100 flex justify-between items-center bg-slate-50/50">
+          <h2 className="text-xl font-bold text-slate-800 tracking-tight">
             {application ? "Edit Application" : "New Application"}
           </h2>
-          <button onClick={onClose} className="text-gray-400 hover:text-gray-600 transition p-1">
+          <button onClick={onClose} className="text-slate-400 hover:text-slate-700 hover:bg-slate-100 transition-colors p-1.5 rounded-lg">
             <X size={20} />
           </button>
         </div>
 
         <form onSubmit={handleSubmit(handleFormSubmit)} className="p-6 overflow-y-auto">
-          <div className="space-y-4">
+          <div className="space-y-5">
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">Company *</label>
+              <label className="block text-sm font-semibold text-slate-700 mb-1.5">Company *</label>
               <input
                 {...register("companyName")}
-                className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition"
+                className="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl shadow-sm focus:outline-none focus:ring-2 focus:ring-primary-500/20 focus:border-primary-500 transition-all text-slate-700"
                 placeholder="e.g. Google"
               />
-              {errors.companyName && <p className="text-red-500 text-sm mt-1">{errors.companyName.message}</p>}
+              {errors.companyName && <p className="text-red-500 text-xs font-medium mt-1.5">{errors.companyName.message}</p>}
             </div>
 
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">Role / Job Title *</label>
+              <label className="block text-sm font-semibold text-slate-700 mb-1.5">Role / Job Title *</label>
               <input
                 {...register("jobTitle")}
-                className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition"
+                className="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl shadow-sm focus:outline-none focus:ring-2 focus:ring-primary-500/20 focus:border-primary-500 transition-all text-slate-700"
                 placeholder="e.g. Frontend Engineer"
               />
-              {errors.jobTitle && <p className="text-red-500 text-sm mt-1">{errors.jobTitle.message}</p>}
+              {errors.jobTitle && <p className="text-red-500 text-xs font-medium mt-1.5">{errors.jobTitle.message}</p>}
             </div>
 
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">Job URL</label>
+              <label className="block text-sm font-semibold text-slate-700 mb-1.5">Job URL</label>
               <input
                 {...register("jobUrl")}
                 type="url"
-                className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition"
+                className="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl shadow-sm focus:outline-none focus:ring-2 focus:ring-primary-500/20 focus:border-primary-500 transition-all text-slate-700"
                 placeholder="https://..."
               />
-              {errors.jobUrl && <p className="text-red-500 text-sm mt-1">{errors.jobUrl.message}</p>}
+              {errors.jobUrl && <p className="text-red-500 text-xs font-medium mt-1.5">{errors.jobUrl.message}</p>}
             </div>
 
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">Status</label>
+              <label className="block text-sm font-semibold text-slate-700 mb-1.5">Status</label>
               <select
                 {...register("status")}
-                className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition bg-white"
+                className="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl shadow-sm focus:outline-none focus:ring-2 focus:ring-primary-500/20 focus:border-primary-500 transition-all text-slate-700 appearance-none"
+                style={{ backgroundImage: `url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%236b7280' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='M6 8l4 4 4-4'/%3e%3c/svg%3e")`, backgroundPosition: 'right 0.5rem center', backgroundRepeat: 'no-repeat', backgroundSize: '1.5em 1.5em' }}
               >
                 <option value="APPLIED">Applied</option>
                 <option value="SCREENING">Screening</option>
@@ -137,53 +138,53 @@ export function ApplicationModal({ application, isOpen, onClose, onSubmit, onDel
             </div>
 
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">Notes</label>
+              <label className="block text-sm font-semibold text-slate-700 mb-1.5">Notes</label>
               <textarea
                 {...register("notes")}
                 rows={3}
-                className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition resize-none"
+                className="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl shadow-sm focus:outline-none focus:ring-2 focus:ring-primary-500/20 focus:border-primary-500 transition-all resize-none text-slate-700 text-sm"
                 placeholder="Interview details, contact info..."
               />
             </div>
 
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">Job Description</label>
+              <label className="block text-sm font-semibold text-slate-700 mb-1.5">Job Description</label>
               <textarea
                 {...register("jobDescription")}
                 rows={4}
-                className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition resize-none text-sm"
+                className="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl shadow-sm focus:outline-none focus:ring-2 focus:ring-primary-500/20 focus:border-primary-500 transition-all resize-none text-slate-700 text-sm"
                 placeholder="Paste the job description here for match score..."
               />
-              <p className="text-xs text-gray-400 mt-1">Used to calculate match score against your resume</p>
+              <p className="text-xs text-slate-400 font-medium mt-2">Used to calculate match score against your resume</p>
             </div>
           </div>
 
-          <div className="mt-8 flex items-center justify-between pt-4 border-t border-gray-100">
+          <div className="mt-8 flex items-center justify-between pt-5 border-t border-slate-100">
             {application ? (
               <button
                 type="button"
                 onClick={handleDelete}
-                className="text-red-600 hover:text-red-700 flex items-center text-sm font-medium px-3 py-2 rounded-md hover:bg-red-50 transition"
+                className="text-red-500 hover:text-red-700 flex items-center text-sm font-semibold px-3 py-2 rounded-lg hover:bg-red-50 transition-colors"
               >
-                <Trash2 size={16} className="mr-1" />
+                <Trash2 size={16} className="mr-1.5" />
                 Delete
               </button>
             ) : (
-              <div></div> // Empty div for flex spacing
+              <div></div>
             )}
             
             <div className="flex gap-3">
               <button
                 type="button"
                 onClick={onClose}
-                className="px-4 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-md hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition"
+                className="px-5 py-2.5 text-sm font-semibold text-slate-600 bg-white border border-slate-200 rounded-xl hover:bg-slate-50 hover:text-slate-900 transition-colors shadow-sm"
               >
                 Cancel
               </button>
               <button
                 type="submit"
                 disabled={isSubmitting}
-                className="px-4 py-2 text-sm font-medium text-white bg-blue-600 border border-transparent rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition disabled:opacity-50 disabled:cursor-not-allowed"
+                className="px-6 py-2.5 text-sm font-semibold text-white bg-primary-600 border border-transparent rounded-xl hover:bg-primary-700 shadow-md hover:shadow-lg transition-all disabled:opacity-50 disabled:cursor-not-allowed"
               >
                 {isSubmitting ? "Saving..." : "Save"}
               </button>

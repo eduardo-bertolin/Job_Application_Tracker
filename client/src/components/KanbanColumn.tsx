@@ -20,10 +20,20 @@ export function KanbanColumn({ status, title, applications, onApplicationClick }
   });
 
   return (
-    <div className="flex flex-col bg-gray-50 rounded-xl w-80 shrink-0">
-      <div className="p-4 flex items-center justify-between border-b border-gray-200">
-        <h2 className="font-semibold text-gray-700">{title}</h2>
-        <span className="bg-gray-200 text-gray-600 text-xs py-1 px-2 rounded-full font-medium">
+    <div data-status={status} className="flex flex-col bg-slate-100/50 backdrop-blur-sm border border-slate-200/60 rounded-2xl w-80 shrink-0 shadow-sm overflow-hidden">
+      <div className="p-4 flex items-center justify-between bg-white/40 border-b border-slate-200/60">
+        <div className="flex items-center gap-2">
+          {/* Status indicator dot */}
+          <div className={`w-2.5 h-2.5 rounded-full ${
+            status === 'APPLIED' ? 'bg-blue-400' :
+            status === 'SCREENING' ? 'bg-purple-400' :
+            status === 'INTERVIEW' ? 'bg-yellow-400' :
+            status === 'OFFER' ? 'bg-green-400' :
+            'bg-slate-400'
+          }`} />
+          <h2 className="font-semibold text-slate-700 tracking-tight">{title}</h2>
+        </div>
+        <span className="bg-white/60 text-slate-600 text-xs py-1 px-2.5 rounded-full font-medium shadow-sm border border-slate-200/50">
           {applications.length}
         </span>
       </div>

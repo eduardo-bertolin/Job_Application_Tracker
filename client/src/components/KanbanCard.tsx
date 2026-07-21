@@ -65,13 +65,14 @@ export function KanbanCard({ application, onClick }: Props) {
       {...attributes}
       {...listeners}
       onClick={onClick}
-      className="bg-white p-4 rounded-lg shadow-sm border border-gray-200 cursor-grab active:cursor-grabbing hover:shadow-md transition group"
+      className="bg-white p-4 rounded-xl shadow-sm border border-slate-200/60 cursor-grab active:cursor-grabbing hover:shadow-md hover:-translate-y-0.5 transition-all group relative overflow-hidden"
     >
-      <div className="flex justify-between items-start mb-2">
-        <h3 className="font-semibold text-gray-900 group-hover:text-blue-600 transition-colors">
+      <div className="absolute top-0 left-0 w-1 h-full bg-primary-500 opacity-0 group-hover:opacity-100 transition-opacity" />
+      <div className="flex justify-between items-start mb-3">
+        <h3 className="font-semibold text-slate-800 group-hover:text-primary-600 transition-colors leading-tight pr-2">
           {application.jobTitle}
         </h3>
-        <div className="flex items-center gap-1">
+        <div className="flex items-center gap-1 shrink-0">
           {matchScore !== null && <ScoreBadge score={matchScore} />}
           {application.jobUrl && (
             <a
@@ -79,21 +80,24 @@ export function KanbanCard({ application, onClick }: Props) {
               target="_blank"
               rel="noopener noreferrer"
               onClick={(e) => e.stopPropagation()}
-              className="text-gray-400 hover:text-blue-500"
+              className="text-slate-400 hover:text-primary-500 transition-colors p-1 rounded-md hover:bg-slate-100"
             >
-              <ExternalLink size={16} />
+              <ExternalLink size={14} />
             </a>
           )}
         </div>
       </div>
       
-      <div className="flex items-center text-sm text-gray-600 mb-4">
-        <Building2 size={14} className="mr-1" />
+      <div className="flex items-center text-sm text-slate-600 mb-4 font-medium">
+        <Building2 size={14} className="mr-1.5 text-slate-400" />
         {application.companyName}
       </div>
 
-      <div className="text-xs text-gray-400">
-        Applied {format(new Date(application.appliedAt), "MMM d, yyyy")}
+      <div className="flex justify-between items-center mt-4 pt-3 border-t border-slate-100">
+        <div className="text-[11px] font-medium text-slate-400 uppercase tracking-wider">
+          {format(new Date(application.appliedAt), "MMM d, yyyy")}
+        </div>
+        {/* Placeholder for avatar or other info in the future */}
       </div>
     </div>
   );

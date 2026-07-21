@@ -85,49 +85,51 @@ export function MetricsPage() {
   const isEmpty = !metrics || metrics.total === 0;
 
   return (
-    <div className="min-h-screen bg-gray-100 flex flex-col">
+    <div className="min-h-screen bg-slate-50 flex flex-col font-sans">
       {/* Header */}
-      <header className="bg-white border-b border-gray-200 px-8 py-4 flex justify-between items-center shrink-0">
-        <div className="flex items-center gap-2">
-          <div className="bg-blue-600 p-2 rounded-lg">
+      <header className="sticky top-0 z-50 glass px-6 py-4 flex flex-col sm:flex-row justify-between items-center shrink-0 border-b border-slate-200/50">
+        <div className="flex items-center gap-3 mb-4 sm:mb-0">
+          <div className="bg-gradient-to-br from-primary-500 to-primary-700 p-2.5 rounded-xl shadow-md shadow-primary-500/20">
             <LayoutDashboard size={20} className="text-white" />
           </div>
-          <h1 className="text-xl font-bold text-gray-900">JobTracker</h1>
+          <h1 className="text-2xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-slate-900 to-slate-700 tracking-tight">JobTracker</h1>
         </div>
 
-        <nav className="flex items-center gap-1">
+        <nav className="flex items-center gap-1 bg-slate-100/50 p-1 rounded-xl border border-slate-200/50 shadow-sm">
           <button
             onClick={() => navigate("/kanban")}
-            className="flex items-center gap-1 px-3 py-2 text-sm font-medium text-gray-600 hover:text-blue-600 hover:bg-blue-50 rounded-md transition"
+            className="flex items-center gap-2 px-4 py-2 text-sm font-medium text-slate-600 hover:text-primary-600 hover:bg-white/60 rounded-lg transition-all"
           >
             <Kanban size={16} /> Kanban
           </button>
           <button
-            className="flex items-center gap-1 px-3 py-2 text-sm font-medium text-blue-600 bg-blue-50 rounded-md"
+            className="flex items-center gap-2 px-4 py-2 text-sm font-semibold text-primary-700 bg-white rounded-lg shadow-sm ring-1 ring-slate-200/50 transition-all"
           >
-            <BarChart3 size={16} /> Metrics
+            <BarChart3 size={16} className="text-primary-600" /> Metrics
           </button>
           <button
             onClick={() => navigate("/gmail")}
-            className="flex items-center gap-1 px-3 py-2 text-sm font-medium text-gray-600 hover:text-blue-600 hover:bg-blue-50 rounded-md transition"
+            className="flex items-center gap-2 px-4 py-2 text-sm font-medium text-slate-600 hover:text-primary-600 hover:bg-white/60 rounded-lg transition-all"
           >
             <Mail size={16} /> Gmail
           </button>
           <button
             onClick={() => navigate("/resume")}
-            className="flex items-center gap-1 px-3 py-2 text-sm font-medium text-gray-600 hover:text-blue-600 hover:bg-blue-50 rounded-md transition"
+            className="flex items-center gap-2 px-4 py-2 text-sm font-medium text-slate-600 hover:text-primary-600 hover:bg-white/60 rounded-lg transition-all"
           >
             <FileText size={16} /> Resume
           </button>
         </nav>
-
-        <div className="flex items-center gap-4">
-          <span className="text-gray-600 text-sm">
-            <strong>{user?.name || user?.email}</strong>
-          </span>
-          <button
+        
+        <div className="flex items-center gap-5 mt-4 sm:mt-0">
+          <div className="hidden md:flex flex-col items-end">
+            <span className="text-xs text-slate-500 font-medium uppercase tracking-wider">Welcome</span>
+            <span className="text-sm font-bold text-slate-800">{user?.name || user?.email}</span>
+          </div>
+          <div className="h-8 w-px bg-slate-200 hidden sm:block"></div>
+          <button 
             onClick={handleLogout}
-            className="text-sm font-medium text-gray-600 hover:text-red-600 transition"
+            className="text-sm font-medium text-slate-500 hover:text-red-600 transition-colors px-2"
           >
             Logout
           </button>
@@ -294,19 +296,23 @@ function SummaryCard({
   color: "blue" | "green" | "purple" | "amber";
 }) {
   const colorMap = {
-    blue: "bg-blue-50 text-blue-600",
-    green: "bg-green-50 text-green-600",
-    purple: "bg-purple-50 text-purple-600",
-    amber: "bg-amber-50 text-amber-600",
+    blue: "from-blue-500 to-blue-600 shadow-blue-500/20",
+    green: "from-emerald-400 to-emerald-500 shadow-emerald-500/20",
+    purple: "from-purple-500 to-purple-600 shadow-purple-500/20",
+    amber: "from-amber-400 to-amber-500 shadow-amber-500/20",
   };
 
   return (
-    <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-6 flex items-start gap-4">
-      <div className={`p-3 rounded-lg ${colorMap[color]}`}>{icon}</div>
-      <div>
-        <p className="text-sm text-gray-500">{label}</p>
-        <p className="text-2xl font-bold text-gray-900">{value}</p>
+    <div className="bg-white rounded-2xl shadow-sm border border-slate-200/60 p-6 flex items-start gap-4 hover:shadow-md hover:-translate-y-1 transition-all group overflow-hidden relative">
+      <div className={`p-3.5 rounded-xl bg-gradient-to-br ${colorMap[color]} shadow-lg text-white relative z-10`}>
+        {icon}
       </div>
+      <div className="relative z-10">
+        <p className="text-sm font-medium text-slate-500 mb-1">{label}</p>
+        <p className="text-3xl font-bold text-slate-800 tracking-tight">{value}</p>
+      </div>
+      {/* Decorative gradient blur in background */}
+      <div className={`absolute -bottom-6 -right-6 w-24 h-24 rounded-full bg-gradient-to-br ${colorMap[color]} opacity-10 blur-2xl group-hover:opacity-20 transition-opacity`} />
     </div>
   );
 }
