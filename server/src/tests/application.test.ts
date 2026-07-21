@@ -3,7 +3,6 @@ import request from 'supertest';
 import express, { Request, Response, NextFunction } from 'express';
 import { prisma } from '../lib/prisma.js';
 import applicationRoutes from '../routes/application.routes.js';
-import { authMiddleware } from '../middlewares/auth.middleware.js';
 
 // Mock auth middleware to easily simulate logged-in user
 vi.mock('../middlewares/auth.middleware.js', () => ({

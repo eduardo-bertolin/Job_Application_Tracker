@@ -20,6 +20,7 @@ model User {
   refreshTokens    RefreshToken[]
   gmailConnection  GmailConnection?
   emailSuggestions EmailSuggestion[]
+  resume           Resume?
 
   @@map("users")
 }
@@ -36,15 +37,17 @@ model RefreshToken {
 }
 
 model Application {
-  id               String            @id @default(uuid())
-  companyName      String            @map("company_name")
-  jobTitle         String            @map("job_title")
-  jobUrl           String?           @map("job_url")
-  status           String            @default("APPLIED")
-  appliedAt        DateTime          @default(now()) @map("applied_at")
-  notes            String?           @db.Text
-  createdAt        DateTime          @default(now()) @map("created_at")
-  updatedAt        DateTime          @updatedAt @map("updated_at")
+  id                      String            @id @default(uuid())
+  companyName             String            @map("company_name")
+  jobTitle                String            @map("job_title")
+  jobUrl                  String?           @map("job_url")
+  status                  String            @default("APPLIED")
+  appliedAt               DateTime          @default(now()) @map("applied_at")
+  notes                   String?           @db.Text
+  jobDescription          String?           @map("job_description") @db.Text
+  jobDescriptionEmbedding String?           @map("job_description_embedding") @db.Text
+  createdAt               DateTime          @default(now()) @map("created_at")
+  updatedAt               DateTime          @updatedAt @map("updated_at")
 
   userId           String            @map("user_id")
   user             User              @relation(fields: [userId], references: [id], onDelete: Cascade)
@@ -53,6 +56,18 @@ model Application {
   @@index([userId, status])
   @@index([userId, appliedAt])
   @@map("applications")
+}
+
+model Resume {
+  id        String   @id @default(uuid())
+  userId    String   @unique @map("user_id")
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  rawText   String   @map("raw_text") @db.Text
+  embedding String   @db.Text // JSON array of 384 floats
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  @@map("resumes")
 }
 
 model GmailConnection {

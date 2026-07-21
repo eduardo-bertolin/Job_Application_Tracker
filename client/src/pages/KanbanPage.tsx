@@ -6,7 +6,7 @@ import { applicationService } from "../services/applications.js";
 import type { Application, ApplicationStatus, CreateApplicationDto, UpdateApplicationDto } from "../services/applications.js";
 import { KanbanColumn } from "../components/KanbanColumn.js";
 import { ApplicationModal } from "../components/ApplicationModal.js";
-import { Plus, LayoutDashboard, BarChart3, Kanban, Mail } from "lucide-react";
+import { Plus, LayoutDashboard, BarChart3, Kanban, Mail, FileText } from "lucide-react";
 import {
   DndContext,
   DragOverlay,
@@ -189,6 +189,12 @@ export function KanbanPage() {
             className="flex items-center gap-1 px-3 py-2 text-sm font-medium text-gray-600 hover:text-blue-600 hover:bg-blue-50 rounded-md transition"
           >
             <Mail size={16} /> Gmail
+          </button>
+          <button
+            onClick={() => navigate("/resume")}
+            className="flex items-center gap-1 px-3 py-2 text-sm font-medium text-gray-600 hover:text-blue-600 hover:bg-blue-50 rounded-md transition"
+          >
+            <FileText size={16} /> Resume
           </button>
         </nav>
         

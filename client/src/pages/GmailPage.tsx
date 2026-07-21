@@ -7,7 +7,7 @@ import type { GmailStatus, EmailSuggestion } from "../services/gmail.js";
 import { format } from "date-fns";
 import {
   LayoutDashboard, Kanban, BarChart3, Mail, RefreshCw, Unplug,
-  Check, X, ArrowRight, AlertTriangle, Zap,
+  Check, X, ArrowRight, AlertTriangle, Zap, FileText
 } from "lucide-react";
 
 const STATUS_LABELS: Record<string, string> = {
@@ -157,6 +157,9 @@ export function GmailPage() {
           </button>
           <button className="flex items-center gap-1 px-3 py-2 text-sm font-medium text-blue-600 bg-blue-50 rounded-md">
             <Mail size={16} /> Gmail
+          </button>
+          <button onClick={() => navigate("/resume")} className="flex items-center gap-1 px-3 py-2 text-sm font-medium text-gray-600 hover:text-blue-600 hover:bg-blue-50 rounded-md transition">
+            <FileText size={16} /> Resume
           </button>
         </nav>
 

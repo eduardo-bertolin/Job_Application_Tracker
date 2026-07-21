@@ -2,8 +2,12 @@
   "name": "job-application-tracker",
   "version": "0.0.1",
   "private": true,
-  "workspaces": ["client", "server"],
+  "workspaces": [
+    "client",
+    "server"
+  ],
   "scripts": {
+    "dev": "npx concurrently \"npm run dev:server\" \"npm run dev:client\"",
     "dev:client": "npm run dev -w client",
     "dev:server": "npm run dev -w server",
     "build:client": "npm run build -w client",
@@ -11,5 +15,11 @@
     "lint": "npm run lint -w client && npm run lint -w server",
     "format": "npm run format -w client && npm run format -w server",
     "test": "npm run test -w client && npm run test -w server"
+  },
+  "devDependencies": {
+    "concurrently": "^10.0.3"
+  },
+  "dependencies": {
+    "rxjs": "^7.8.2"
   }
 }

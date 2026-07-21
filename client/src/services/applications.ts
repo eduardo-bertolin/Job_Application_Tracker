@@ -10,6 +10,7 @@ export interface Application {
   status: ApplicationStatus;
   appliedAt: string;
   notes: string | null;
+  jobDescription: string | null;
   createdAt: string;
   updatedAt: string;
 }
@@ -20,6 +21,7 @@ export interface CreateApplicationDto {
   jobUrl?: string;
   status?: ApplicationStatus;
   notes?: string;
+  jobDescription?: string;
 }
 
 export interface UpdateApplicationDto {
@@ -28,6 +30,7 @@ export interface UpdateApplicationDto {
   jobUrl?: string;
   status?: ApplicationStatus;
   notes?: string;
+  jobDescription?: string;
 }
 
 export const applicationService = {
@@ -55,3 +58,4 @@ export const applicationService = {
     await api.delete(`/applications/${id}`);
   }
 };
+

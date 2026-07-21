@@ -1,6 +1,7 @@
 import { Request, Response, NextFunction } from "express";
 import { z } from "zod";
 import { prisma } from "../lib/prisma.js";
+import { generateEmbedding } from "../services/embeddings.js";
 
 // Zod schemas for input validation
 const applicationSchema = z.object({
@@ -9,6 +10,7 @@ const applicationSchema = z.object({
   jobUrl: z.string().url("Must be a valid URL").optional().or(z.literal("")),
   status: z.enum(["APPLIED", "SCREENING", "INTERVIEW", "OFFER", "REJECTED"]).default("APPLIED"),
   notes: z.string().optional().or(z.literal("")),
+  jobDescription: z.string().optional().or(z.literal("")),
 });
 
 const updateApplicationSchema = applicationSchema.partial();
@@ -63,9 +65,17 @@ export const applicationController = {
       const userId = req.user!.userId;
       const validatedData = applicationSchema.parse(req.body);
 
+      // Generate embedding if jobDescription provided
+      let jobDescriptionEmbedding: string | undefined;
+      if (validatedData.jobDescription && validatedData.jobDescription.trim().length > 0) {
+        const embedding = await generateEmbedding(validatedData.jobDescription);
+        jobDescriptionEmbedding = JSON.stringify(embedding);
+      }
+
       const application = await prisma.application.create({
         data: {
           ...validatedData,
+          jobDescriptionEmbedding,
           userId,
         },
       });
@@ -97,9 +107,23 @@ export const applicationController = {
         return;
       }
 
+      // Regenerate embedding if jobDescription changed
+      let jobDescriptionEmbedding: string | null | undefined;
+      if (validatedData.jobDescription !== undefined) {
+        if (validatedData.jobDescription && validatedData.jobDescription.trim().length > 0) {
+          const embedding = await generateEmbedding(validatedData.jobDescription);
+          jobDescriptionEmbedding = JSON.stringify(embedding);
+        } else {
+          jobDescriptionEmbedding = null; // cleared
+        }
+      }
+
       const application = await prisma.application.update({
         where: { id },
-        data: validatedData,
+        data: {
+          ...validatedData,
+          ...(jobDescriptionEmbedding !== undefined ? { jobDescriptionEmbedding } : {}),
+        },
       });
 
       res.status(200).json({ application });
@@ -138,3 +162,4 @@ export const applicationController = {
     }
   }
 };
+

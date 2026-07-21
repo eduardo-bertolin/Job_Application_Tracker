@@ -15,7 +15,7 @@ export const gmailController = {
   },
 
   // GET /gmail/callback — handle OAuth callback
-  async callback(req: Request, res: Response, next: NextFunction) {
+  async callback(req: Request, res: Response) {
     try {
       const code = req.query.code as string;
       const userId = req.query.state as string;
@@ -29,7 +29,7 @@ export const gmailController = {
 
       // Redirect to frontend Gmail page
       res.redirect("http://localhost:5173/gmail?connected=true");
-    } catch (error) {
+    } catch {
       res.redirect("http://localhost:5173/gmail?error=oauth_failed");
     }
   },

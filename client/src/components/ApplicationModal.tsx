@@ -11,6 +11,7 @@ const schema = z.object({
   jobUrl: z.string().url("Must be a valid URL").optional().or(z.literal("")),
   status: z.enum(["APPLIED", "SCREENING", "INTERVIEW", "OFFER", "REJECTED"]),
   notes: z.string().optional(),
+  jobDescription: z.string().optional(),
 });
 
 type FormData = z.infer<typeof schema>;
@@ -32,6 +33,7 @@ export function ApplicationModal({ application, isOpen, onClose, onSubmit, onDel
       jobUrl: "",
       status: "APPLIED",
       notes: "",
+      jobDescription: "",
     }
   });
 
@@ -44,6 +46,7 @@ export function ApplicationModal({ application, isOpen, onClose, onSubmit, onDel
           jobUrl: application.jobUrl || "",
           status: application.status,
           notes: application.notes || "",
+          jobDescription: application.jobDescription || "",
         });
       } else {
         reset({
@@ -52,6 +55,7 @@ export function ApplicationModal({ application, isOpen, onClose, onSubmit, onDel
           jobUrl: "",
           status: "APPLIED",
           notes: "",
+          jobDescription: "",
         });
       }
     }
@@ -140,6 +144,17 @@ export function ApplicationModal({ application, isOpen, onClose, onSubmit, onDel
                 className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition resize-none"
                 placeholder="Interview details, contact info..."
               />
+            </div>
+
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-1">Job Description</label>
+              <textarea
+                {...register("jobDescription")}
+                rows={4}
+                className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition resize-none text-sm"
+                placeholder="Paste the job description here for match score..."
+              />
+              <p className="text-xs text-gray-400 mt-1">Used to calculate match score against your resume</p>
             </div>
           </div>
 

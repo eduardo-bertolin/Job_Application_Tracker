@@ -10,7 +10,7 @@ import {
 } from "recharts";
 import {
   LayoutDashboard, Kanban, TrendingUp, Users, Clock, BarChart3,
-  Briefcase, ArrowRight, Mail,
+  Briefcase, ArrowRight, Mail, FileText
 } from "lucide-react";
 
 const STATUS_LABELS: Record<string, string> = {
@@ -112,6 +112,12 @@ export function MetricsPage() {
             className="flex items-center gap-1 px-3 py-2 text-sm font-medium text-gray-600 hover:text-blue-600 hover:bg-blue-50 rounded-md transition"
           >
             <Mail size={16} /> Gmail
+          </button>
+          <button
+            onClick={() => navigate("/resume")}
+            className="flex items-center gap-1 px-3 py-2 text-sm font-medium text-gray-600 hover:text-blue-600 hover:bg-blue-50 rounded-md transition"
+          >
+            <FileText size={16} /> Resume
           </button>
         </nav>
 
