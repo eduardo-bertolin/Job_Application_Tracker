@@ -28,7 +28,7 @@ This project is built using:
 ### Steps
 1. **Clone and Install dependencies**
    ```bash
-   git clone <[repo-url](https://github.com/eduardo-bertolin/Job_Application_Tracker.git)>
+   git clone https://github.com/eduardo-bertolin/Job_Application_Tracker.git
    cd Job_Application_Tracker
    npm install -w client
    npm install -w server
